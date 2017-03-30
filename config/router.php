@@ -10,11 +10,11 @@ return [
             ':id' => ['index/index/index'],
         ],
     ],
-    'admin.lying.com' => [
+    'pano.com' => [
         'module' => 'admin',
         'controller' => 'index',
         'action' => 'index',
-        'suffix' => '.html',
+        'suffix' => '',
         'pathinfo' => false,
         'rule' => [],
     ],

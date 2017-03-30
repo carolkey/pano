@@ -17,6 +17,7 @@ use lying\logger\Logger;
  * @method Router router()
  * @method Request request()
  * @method Secure secure()
+ * @method Session session()
  *
  * @author carolkey <me@suyaqi.cn>
  * @since 2.0
@@ -29,7 +30,7 @@ class Maker
      * @var array 服务类实例容器
      */
     private static $instances = [];
-    
+
     /**
      * @var array 所有注册的服务
      */
@@ -40,8 +41,9 @@ class Maker
         'request' => 'lying\service\Request',
         'router' => 'lying\service\Router',
         'secure' => 'lying\service\Secure',
+        'session' => 'lying\service\Session',
     ];
-    
+
     /**
      * 按需注册服务，服务类可以一样，服务id不能重复
      * @param array $service 服务配置数组
