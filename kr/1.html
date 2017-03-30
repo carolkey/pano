@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="author" content="carol">
+	<meta name="description" content="小黑屋-个人博客">
+	<meta name="keywords" content="小黑屋,博客">
+	<title>小黑屋</title>
+	<link rel="stylesheet" href="http://oss.suyaqi.cn/static/layui1.0.9rls/css/layui.css">
+	<link rel="stylesheet" href="/static/backend/css/global.css">
+	<script src="http://oss.suyaqi.cn/static/layui1.0.9rls/layui.js"></script>
+</head>
+<body>
+	<!-- 顶部导航 -->
+	<header class="header">
+		<h1 class="layui-hide">小黑屋</h1>
+		<img class="header-logo" src="/static/common/image/logo.png" alt="LOGO">
+		<nav class="header-nav">
+			<h2 class="layui-hide">导航</h2>
+			<ul>
+				<li class="header-nav-on"><a href="">首页</a></li>
+				<li><a href="">语录</a></li>
+				<li><a href="">相册</a></li>
+				<li><a href="">归档</a></li>
+				<li><a href="">关于</a></li>
+			</ul>
+		</nav>
+	</header>
+	<!-- 侧边菜单 -->
+	<aside class="aside">
+		<h2 class="layui-hide">菜单</h2>
+		<div class="layui-collapse">
+			<div class="layui-colla-item">
+				<h2 class="layui-colla-title">系统设置</h2>
+				<div class="layui-colla-content layui-show">
+					<ul>
+						<li><a href=""><i class="layui-icon">&#xe614;</i> 系统探针</a></li>
+						<li><a href=""><i class="layui-icon">&#xe614;</i> 站点设置</a></li>
+						<li><a href=""><i class="layui-icon">&#xe614;</i> 软件设置</a></li>
+						<li><a href=""><i class="layui-icon">&#xe614;</i> 存储设置</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="layui-colla-item">
+				<h2 class="layui-colla-title">项目管理</h2>
+				<div class="layui-colla-content layui-show">
+					<ul>
+						<li><a href=""><i class="layui-icon">&#xe62e;</i> 地主管理</a></li>
+						<li><a href=""><i class="layui-icon">&#xe62e;</i> 楼盘项目</a></li>
+						<li><a href=""><i class="layui-icon">&#xe62e;</i> 标签管理</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="layui-colla-item">
+				<h2 class="layui-colla-title">素材管理</h2>
+				<div class="layui-colla-content layui-show">
+					<ul>
+						<li><a href=""><i class="layui-icon">&#xe61d;</i> 全景图片</a></li>
+						<li><a href=""><i class="layui-icon">&#xe61d;</i> 图片素材</a></li>
+						<li><a href=""><i class="layui-icon">&#xe61d;</i> 音频素材</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</aside>
+	<!-- 内容容器 -->
+	<div class="container">
+		<fieldset class="layui-elem-field layui-field-title">
+			<legend>站点设置</legend>
+			<div class="layui-field-box">
+				<div style="margin-bottom: 15px;">
+					<input type="file" name="file" class="layui-upload-file" lay-title="上传LOGO（180 x 60）">
+				</div>
+				<form class="layui-form layui-form-pane" action="">
+					<div class="layui-form-item">
+						<label class="layui-form-label">站点名称</label>
+						<div class="layui-input-block">
+							<input type="text" name="title" placeholder="如：丝路视觉" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">站点热词</label>
+						<div class="layui-input-block">
+							<input type="text" name="keywords" placeholder="如：小黑屋,博客,CG" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item layui-form-text">
+						<label class="layui-form-label">站点描述</label>
+						<div class="layui-input-block">
+							<textarea name="description" placeholder="如：小黑屋是专门把人关小黑屋的工作室" class="layui-textarea noresize"></textarea>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">版权信息</label>
+						<div class="layui-input-block">
+							<input type="text" name="copyright" placeholder="如：Copyright © 2017 waaili.me" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">备案信息</label>
+						<div class="layui-input-block">
+							<input type="text" name="icp" placeholder="如：闽ICP备15011128号" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<button class="layui-btn" lay-submit>立即保存</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</form>
+			</div>
+		</fieldset>
+	</div>
+
+	<footer class="footer">
+		<p>Copyright © 2017 waaili.me | Powered by <a href="">Lying</a></p>
+		<p>闽ICP备15011128号</p>
+	</footer>
+
+<script>
+layui.use(['element', 'form', 'upload'], function(){
+	layui.upload({
+		url: '上传接口url'
+		,success: function(res){
+		console.log(res); //上传成功返回值，必须为json格式
+		}
+	});
+});
+</script>
+</body>
+</html>
