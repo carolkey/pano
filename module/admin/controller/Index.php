@@ -5,9 +5,8 @@ class Index extends ACL
 {
     public $layout = 'layout';
     
-    public function index()
+    public function index($phpinfo = false)
     {
-
-        return $this->render('index');
+        return $phpinfo ? !phpinfo() : $this->render('index');
     }
 }

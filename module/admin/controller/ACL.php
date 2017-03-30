@@ -8,7 +8,7 @@ class ACL extends Controller
     protected function init()
     {
         $session = \Lying::$maker->session();
-        if (!$session->exists('login')) {
+        if (!$session->exists('adminer')) {
             $this->redirect('login/index');
         }
     }
