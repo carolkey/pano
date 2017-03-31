@@ -5,9 +5,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<meta name="author" content="carol">
-	<meta name="description" content="小黑屋-个人博客">
-	<meta name="keywords" content="小黑屋,博客">
-	<title>小黑屋-登录</title>
+    <meta name="keywords" content="<?= $keywords; ?>">
+	<meta name="description" content="<?= $description; ?>">
+	<title><?= $title; ?>-登录</title>
 
 	<link rel="stylesheet" href="http://oss.suyaqi.cn/static/layui1.0.9rls/css/layui.css">
 

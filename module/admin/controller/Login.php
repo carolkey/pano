@@ -3,6 +3,7 @@ namespace module\admin\controller;
 
 use lying\base\Controller;
 use module\admin\model\Adminer;
+use module\admin\model\Config;
 
 class Login extends Controller
 {
@@ -40,7 +41,7 @@ class Login extends Controller
             }
             return json_encode($return);
         }
-        return $this->render('index');
+        return $this->render('index', Config::read());
     }
 
     /**

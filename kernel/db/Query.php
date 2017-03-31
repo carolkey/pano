@@ -15,31 +15,31 @@ class Query extends QueryBuilder
      * @var Connection 数据库连接实例
      */
     protected $connection;
-    
+
     /**
      * @var array 要查询的字段
      * @see select()
      */
     protected $select = [];
-    
+
     /**
      * @var boolean 是否去重
      * @see distinct()
      */
     protected $distinct = false;
-    
+
     /**
      * @var array 要查询的表
      * @see from()
      */
     protected $from = [];
-    
+
     /**
      * @var array 要关联的表
      * @see join()
      */
     protected $join = [];
-    
+
     /**
      * @var array 查询的条件
      * @see where()
@@ -51,36 +51,36 @@ class Query extends QueryBuilder
      * @see groupBy()
      */
     protected $groupBy = [];
-    
+
     /**
      * @var array 筛选的条件
      * @see having()
      */
     protected $having = [[], []];
-    
+
     /**
      * @var array 要排序的字段
      * @see orderBy()
      */
     protected $orderBy = [];
-    
+
     /**
      * @var array 偏移和限制的条数
      * @see limit()
      */
     protected $limit = [];
-    
+
     /**
      * @var array 联合查询的Query
      * @see union()
      */
     protected $union = [];
-    
+
     /**
      * @var \PDOStatement PDO语句句柄
      */
     protected $sth;
-    
+
     /**
      * 初始化Query查询
      * @param Connection $connection 数据库连接实例
@@ -118,7 +118,7 @@ class Query extends QueryBuilder
         $this->distinct = true;
         return $this;
     }
-    
+
     /**
      * 设置要查询的表
      * @param string|array $tables 要查询的表
@@ -135,7 +135,7 @@ class Query extends QueryBuilder
         $this->from = $tables;
         return $this;
     }
-    
+
     /**
      * 设置表连接，可多次调用
      * @param string $type 连接类型,可以为'left join'，'right join'，'inner join'
@@ -149,7 +149,7 @@ class Query extends QueryBuilder
         $this->join[] = [$type, $table, $on, $params];
         return $this;
     }
-    
+
     /**
      * 设置查询条件
      * @param string|array $condition 要查询的条件
@@ -165,7 +165,7 @@ class Query extends QueryBuilder
         $this->where = [$condition, $params];
         return $this;
     }
-    
+
     /**
      * 设置分组查询
      * @param string|array 要分组的字段
@@ -181,7 +181,7 @@ class Query extends QueryBuilder
         $this->groupBy = $columns;
         return $this;
     }
-    
+
     /**
      * 聚合筛选
      * @param string|array $condition 参见where()
@@ -193,7 +193,7 @@ class Query extends QueryBuilder
         $this->having = [$condition, $params];
         return $this;
     }
-    
+
     /**
      * 设置排序
      * @param string|array $columns 要排序的字段和排序方式
@@ -218,7 +218,7 @@ class Query extends QueryBuilder
         }
         return $this;
     }
-    
+
     /**
      * 设置限制查询的条数
      * @param integer $offset 偏移的条数，如果只提供此参数，则等同于limit(0, $offset)
@@ -232,7 +232,7 @@ class Query extends QueryBuilder
         $this->limit = [$offset, $limit];
         return $this;
     }
-    
+
     /**
      * 设置联合查询,可多次使用
      * @param Query $query 子查询
@@ -244,7 +244,7 @@ class Query extends QueryBuilder
         $this->union[] = [$query, $all];
         return $this;
     }
-    
+
     /**
      * 执行一条sql语句
      * @param string $statement sql语句
@@ -256,7 +256,7 @@ class Query extends QueryBuilder
         $this->sth = $this->connection->prepare($statement);
         return $this->sth->execute($params);
     }
-    
+
     /**
      * 执行原生SQL，返回的是语句执行后的PDOStatement对象，直接调用fetch，fetchAll，rowCount等函数即可
      * db()->createQuery()->RawSql('select * from user')->fetchAll(\PDO::FETCH_ASSOC);
@@ -269,7 +269,7 @@ class Query extends QueryBuilder
         $this->sth = $this->connection->prepare($statement);
         return $this->execute($statement, $params) ? $this->sth : false;
     }
-    
+
     /**
      * 查询数据
      * @param string $method 查询的方法
@@ -283,7 +283,7 @@ class Query extends QueryBuilder
         $this->sth->closeCursor();
         return $res;
     }
-    
+
     /**
      * 返回结果集中的一条记录
      * @param boolean $obj 是否返回对象(默认返回关联数组)
@@ -294,7 +294,7 @@ class Query extends QueryBuilder
     {
         return $this->fetch($obj ? 'fetchObject' : 'fetch', $class === null ? [] : [$class]);
     }
-    
+
     /**
      * 返回所有查询结果的数组
      * @param boolean $obj 是否返回对象(默认返回关联数组)
@@ -305,7 +305,7 @@ class Query extends QueryBuilder
     {
         return $this->fetch('fetchAll', $obj ? ($class === null ? [\PDO::FETCH_OBJ] : [\PDO::FETCH_CLASS, $class]) : []);
     }
-    
+
     /**
      * 从结果集中的下一行返回单独的一列，查询结果为标量
      * @return mixed
@@ -314,15 +314,16 @@ class Query extends QueryBuilder
     {
         return $this->fetch('fetchColumn');
     }
-    
+
     /**
      * 插入一条数据
      * @param string $table 要插入的表名
      * @param array $datas 要插入的数据，(name => value)形式的数组
      * 当然value可以是子查询,Query的实例，但是查询的表不能和插入的表是同一个
+     * @param boolean $replace 是否用REPLACE INTO
      * @return integer|boolean 返回受影响的行数，有可能是0行，失败返回false
      */
-    public function insert($table, $datas)
+    public function insert($table, $datas, $replace = false)
     {
         foreach ($datas as $col => $data) {
             $cols[] = $this->quoteColumn($col);
@@ -334,10 +335,10 @@ class Query extends QueryBuilder
             }
         }
         $table = $this->quoteColumn($table);
-        $statement = "INSERT INTO $table (" . implode(', ', $cols) . ') VALUES (' . implode(', ', $palceholders) . ')';
+        $statement = ($replace ? 'REPLACE INTO' : 'INSERT INTO') . " $table (" . implode(', ', $cols) . ') VALUES (' . implode(', ', $palceholders) . ')';
         return $this->execute($statement, $params) ? $this->sth->rowCount() : false;
     }
-    
+
     /**
      * 批量插入数据
      * @param string $table 要插入的表名
@@ -348,9 +349,10 @@ class Query extends QueryBuilder
      *     ['user2', 0],
      *     ['user3', 1],
      * ])
+     * @param boolean $replace 是否用REPLACE INTO
      * @return integer|boolean 返回受影响的行数,有可能是0行,失败返回false
      */
-    public function batchInsert($table, $columns, $datas)
+    public function batchInsert($table, $columns, $datas, $replace = false)
     {
         $params = [];
         foreach ($datas as $row) {
@@ -360,10 +362,10 @@ class Query extends QueryBuilder
         $columns = array_map(function($col) {
             return $this->quoteColumn($col);
         }, $columns);
-        $statement = "INSERT INTO $table (" . implode(', ', $columns) . ') VALUES ' . implode(', ', $v);
+        $statement = ($replace ? 'REPLACE INTO' : 'INSERT INTO') . " $table (" . implode(', ', $columns) . ') VALUES ' . implode(', ', $v);
         return $this->execute($statement, $params) ? $this->sth->rowCount() : false;
     }
-    
+
     /**
      * 更新数据
      * @param string $table 要更新的表
@@ -389,7 +391,7 @@ class Query extends QueryBuilder
         $statement = $statement . (empty($where) ? '' : " WHERE $where");
         return $this->execute($statement, $p) ? $this->sth->rowCount() : false;
     }
-    
+
     /**
      * 删除数据
      * @param string $table 要删除的表
