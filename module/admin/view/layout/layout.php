@@ -8,9 +8,9 @@
     <meta name="keywords" content="<?= $keywords; ?>">
     <meta name="description" content="<?= $description; ?>">
     <title><?= $title; ?></title>
-    <link rel="stylesheet" href="http://oss.suyaqi.cn/static/layui1.0.9rls/css/layui.css">
+    <link rel="stylesheet" href="http://<?= $cdn; ?>/static/layui1.0.9rls/css/layui.css">
     <link rel="stylesheet" href="/static/backend/css/global.css">
-    <script src="http://oss.suyaqi.cn/static/layui1.0.9rls/layui.js"></script>
+    <script src="http://<?= $cdn; ?>/static/layui1.0.9rls/layui.js"></script>
 </head>
 <body>
 <!-- 顶部导航 -->
@@ -36,10 +36,10 @@
             <h2 class="layui-colla-title">系统设置</h2>
             <div class="layui-colla-content layui-show">
                 <ul>
-                    <li><a href="<?= url('index/index') ?>"><i class="layui-icon">&#xe614;</i> 系统探针</a></li>
-                    <li><a href="<?= url('config/web') ?>"><i class="layui-icon">&#xe614;</i> 站点设置</a></li>
-                    <li><a href="<?= url('index/index') ?>"><i class="layui-icon">&#xe614;</i> 软件设置</a></li>
-                    <li><a href="<?= url('index/index') ?>"><i class="layui-icon">&#xe614;</i> 存储设置</a></li>
+                    <li><a href="<?= url('index/index') ?>"><i class="layui-icon">&#xe62c;</i> 系统探针</a></li>
+                    <li><a href="<?= url('config/web') ?>"><i class="layui-icon">&#xe631;</i> 站点设置</a></li>
+                    <li><a href="<?= url('config/krpano') ?>"><i class="layui-icon">&#xe628;</i> 软件设置</a></li>
+                    <li><a href="<?= url('config/oss') ?>"><i class="layui-icon">&#xe624;</i> 存储设置</a></li>
                 </ul>
             </div>
         </div>
@@ -47,9 +47,9 @@
             <h2 class="layui-colla-title">项目管理</h2>
             <div class="layui-colla-content layui-show">
                 <ul>
-                    <li><a href=""><i class="layui-icon">&#xe62e;</i> 地主管理</a></li>
-                    <li><a href=""><i class="layui-icon">&#xe62e;</i> 楼盘项目</a></li>
-                    <li><a href=""><i class="layui-icon">&#xe62e;</i> 标签管理</a></li>
+                    <li><a href="<?= url('project/building') ?>"><i class="layui-icon">&#xe62e;</i> 楼盘项目</a></li>
+                    <li><a href="<?= url('project/tags') ?>"><i class="layui-icon">&#xe609;</i> 标签管理</a></li>
+                    <li><a href="<?= url('project/publish') ?>"><i class="layui-icon">&#xe64e;</i> 发布全景</a></li>
                 </ul>
             </div>
         </div>
@@ -57,9 +57,9 @@
             <h2 class="layui-colla-title">素材管理</h2>
             <div class="layui-colla-content layui-show">
                 <ul>
-                    <li><a href=""><i class="layui-icon">&#xe61d;</i> 全景图片</a></li>
-                    <li><a href=""><i class="layui-icon">&#xe61d;</i> 图片素材</a></li>
-                    <li><a href=""><i class="layui-icon">&#xe61d;</i> 音频素材</a></li>
+                    <li><a href=""><i class="layui-icon">&#xe634;</i> 全景图片</a></li>
+                    <li><a href=""><i class="layui-icon">&#xe60d;</i> 图片素材</a></li>
+                    <li><a href=""><i class="layui-icon">&#xe645;</i> 音频素材</a></li>
                 </ul>
             </div>
         </div>

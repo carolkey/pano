@@ -15,5 +15,6 @@ class ACL extends Controller
             $this->redirect('login/index');
         }
         $this->subparams = Config::read();
+        \Lying::$maker->config()->write('config', $this->subparams);
     }
 }

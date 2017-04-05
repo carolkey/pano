@@ -1,9 +1,3 @@
-/*全局*/
-.noresize {
-	resize: none;
-}
-
-
 /*顶部导航*/
 .header {
     position: fixed;
@@ -27,7 +21,7 @@
     font-size: 0;
 }
 .header-nav li {
-	display: inline-block;
+    display: inline-block;
 }
 .header-nav a {
     display: block;
@@ -57,79 +51,56 @@
 
 /*侧边菜单*/
 .aside {
-	float: left;
+    position: fixed;
+    top: 60px;
+    bottom: 0;
     width: 200px;
-    margin-top: 60px;
+    overflow-y: scroll;
+    z-index: 998;
 }
-.layui-colla-content {
-	padding: 0;
+.aside .layui-collapse {
+    border: none;
 }
-.layui-colla-content li:not(:last-child) {
-	border-bottom: 1px solid #eee;
+.aside .layui-colla-content {
+    padding: 0;
 }
-.layui-colla-content li a {
-	height: 36px;
-	line-height: 36px;
-	padding: 0 15px;
-	display: block;
+.aside .layui-colla-content li:not(:last-child) {
+    border-bottom: 1px solid #eee;
 }
-.layui-colla-content li a i {
-	position: relative;
-	top: 1px;
+.aside .layui-colla-content li a {
+    height: 36px;
+    line-height: 36px;
+    padding: 0 15px;
+    display: block;
 }
 
 /*内容容器*/
 .container {
-    margin-left: 200px;
-    padding: 60px 20px 0 20px;
+    position: fixed;
+    top: 60px;
+    bottom: 60px;
+    left: 200px;
+    right: 0;
+    overflow-y: auto;
+    padding: 10px;
+    z-index: 996;
 }
-
-
-
-
-
-
-.page {
-    font-size: 0;
-    text-align: center;
-    overflow: hidden;
-}
-.page > *{
-	position: relative;
-    display: inline-block;
-    padding: 5px 15px;
-    margin: 0 0 0 -1px;
-    border: 1px solid #000;
-    font-size: 14px;
-}
-.page .iconfont {
-    font-size: 14px;
-    display: inline;
-}
-.page > :first-child {
-    border-radius: 3px 0 0 3px;
-}
-.page > :last-child {
-    border-radius: 0 3px 3px 0;
-}
-.page > .page-on {
-    background-color: #000;
-    color: #fff;
-}
-
-
-
-
 
 /*页脚*/
 .footer {
-    margin-left: 200px;
+    position: fixed;
+    bottom: 0;
+    left: 200px;
+    right: 0;
+    z-index: 997;
+    text-align: center;
+    background-color: #eee;
+    padding: 6px;
 }
 .footer p {
     height: 24px;
     line-height: 24px;
     font-size: 13px;
-    text-align: center;
 }
 .footer a {
     color: #009688;

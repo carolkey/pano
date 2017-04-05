@@ -9,9 +9,12 @@
 	<meta name="description" content="<?= $description; ?>">
 	<title><?= $title; ?>-登录</title>
 
-	<link rel="stylesheet" href="http://oss.suyaqi.cn/static/layui1.0.9rls/css/layui.css">
+	<link rel="stylesheet" href="http://<?= $cdn; ?>/static/layui1.0.9rls/css/layui.css">
 
 	<style>
+        body {
+            background-color: #f1f1f1;
+        }
 		.container {
 			box-sizing: border-box;
 			position: fixed;
@@ -36,7 +39,7 @@
 		}
 	</style>
 </head>
-<body style="background-color: #f1f1f1;">
+<body>
 	<div class="container">
 		<form class="layui-form layui-form-pane" method="post">
 			<div class="layui-form-item">
@@ -59,13 +62,13 @@
 				</div>
 			</div>
 			<div class="layui-form-item">
-				<button class="layui-btn" lay-submit lay-filter="login" style="width: 100%;">立 即 登 录</button>
+				<button class="layui-btn" lay-submit lay-filter="login" style="width: 100%;">Sign in</button>
 			</div>
 		</form>
 	</div>
 </body>
-<script src="http://oss.suyaqi.cn/static/layui1.0.9rls/layui.js"></script>
-<script src="http://oss.suyaqi.cn/static/crypto-js/crypto-js.js"></script>
+<script src="http://<?= $cdn; ?>/static/layui1.0.9rls/layui.js"></script>
+<script src="http://<?= $cdn; ?>/static/crypto-js/crypto-js.js"></script>
 <script>
 layui.use(['jquery', 'form', 'layer'], function(){
 	var $ = layui.jquery,

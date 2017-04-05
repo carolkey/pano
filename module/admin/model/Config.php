@@ -23,16 +23,18 @@ class Config extends ActiveRecord
     }
 
     /**
-     * 取站点信息
+     * 取配置信息
      * @param boolean $refresh 是否立即刷新
      * @return array
      */
     public static function read($refresh = false)
     {
-        $res = \Lying::$maker->cache()->get('config');
-        if ($refresh || !$res) {
+        if ($refresh || !($res = \Lying::$maker->cache()->get('config'))) {
             $res = self::find()->asArray()->all();
             $res = array_combine(array_column($res, 'name'), array_column($res, 'value'));
+            if (empty($res['cdn'])) {
+                $res['cdn'] = $res['bucket'] . '.' . Endpoint::expoint($res['endpoint']);
+            }
             \Lying::$maker->cache()->set('config', $res);
         }
         return $res;

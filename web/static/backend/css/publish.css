@@ -1,0 +1,66 @@
+/*选择上传的文件*/
+.select-btn {
+    position: relative;
+    border: 1px solid red;
+    height: 38px;
+    line-height: 38px;
+    border: 1px solid #dfdfdf;
+    border-radius: 2px;
+    color: #666;
+    margin: 10px 0;
+    transition: color 0.3s;
+    transition: border-color 0.3s;
+}
+.select-btn:hover {
+    color: #333;
+    border-color: #aaa;
+}
+.select-btn input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    opacity: 0;
+    filter: Alpha(opacity=1);
+}
+.select-btn span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+.select-btn span i {
+    font-size: 26px;
+    vertical-align: middle;
+    color: #5FB878;
+}
+/*文件列表*/
+#filelist {
+    max-height: 200px;
+}
+#filelist i {
+    vertical-align: middle;
+    font-size: 24px;
+    color: red;
+}
+/*plupload结构容器*/
+#container {
+    height: 0;
+    overflow: hidden;
+}
+/*信息提示框*/
+#console {
+    padding: 5px 10px;
+    height: 150px;
+    overflow-y: auto;
+    background-color: #000;
+    color: green;
+    font-family: 'Consolas';
+    font-size: 12px;
+    border: 1px solid #000;
+    border-radius: 3px;
+}
+/*发布按钮*/
+#publish {
+    width: 100%;
+}
