@@ -11,10 +11,10 @@ class ACL extends Controller
     protected function init()
     {
         $session = \Lying::$maker->session();
-        if (!$session->exists('adminer')) {
+        if ($session->exists('adminer')) {
+            $this->subparams = Config::read();
+        } else {
             $this->redirect('login/index');
         }
-        $this->subparams = Config::read();
-        \Lying::$maker->config()->write('config', $this->subparams);
     }
 }

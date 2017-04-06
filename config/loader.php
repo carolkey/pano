@@ -5,8 +5,9 @@ return [
     ],
     'psr-4' => [
         'module' => DIR_MODULE,
+        'util' => ROOT . '/util',
     ],
     'psr-0' => [
-        ROOT,
+
     ],
 ];

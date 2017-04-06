@@ -18,8 +18,8 @@ class Login extends Controller
     public function beforeAction($action)
     {
         $session = \Lying::$maker->session();
-        if ($session->exists('adminer') && $action !== 'logout') {
-            $this->redirect('index/index');
+        if ($session->exists('adminer') && $action != 'logout') {
+            $this->redirect('setting/index');
         }
         $this->session = \Lying::$maker->session();
     }
@@ -32,14 +32,14 @@ class Login extends Controller
     {
         if (\Lying::$maker->request()->isPost()) {
             if (post('code') !== (string)$this->session['code']) {
-                $return = ['stat' => 1, 'msg' => '验证码错误'];
+                $ret = ['stat' => 1, 'msg' => '验证码错误'];
             } elseif (!Adminer::login(post('account'), post('password'), post('code'))) {
-                $return = ['stat' => 2, 'msg' => '账号或者密码错误'];
+                $ret = ['stat' => 2, 'msg' => '账号或者密码错误'];
             } else {
                 unset($this->session['code']);
-                $return = ['stat' => 0, 'msg' => '登陆成功'];
+                $ret = ['stat' => 0, 'msg' => '登陆成功'];
             }
-            return json_encode($return);
+            return json_encode($ret);
         }
         return $this->render('index', Config::read());
     }

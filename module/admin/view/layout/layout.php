@@ -8,9 +8,9 @@
     <meta name="keywords" content="<?= $keywords; ?>">
     <meta name="description" content="<?= $description; ?>">
     <title><?= $title; ?></title>
-    <link rel="stylesheet" href="http://<?= $cdn; ?>/static/layui1.0.9rls/css/layui.css">
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
     <link rel="stylesheet" href="/static/backend/css/global.css">
-    <script src="http://<?= $cdn; ?>/static/layui1.0.9rls/layui.js"></script>
+    <script src="/static/layui/layui.js"></script>
 </head>
 <body>
 <!-- 顶部导航 -->
@@ -36,10 +36,10 @@
             <h2 class="layui-colla-title">系统设置</h2>
             <div class="layui-colla-content layui-show">
                 <ul>
-                    <li><a href="<?= url('index/index') ?>"><i class="layui-icon">&#xe62c;</i> 系统探针</a></li>
-                    <li><a href="<?= url('config/web') ?>"><i class="layui-icon">&#xe631;</i> 站点设置</a></li>
-                    <li><a href="<?= url('config/krpano') ?>"><i class="layui-icon">&#xe628;</i> 软件设置</a></li>
-                    <li><a href="<?= url('config/oss') ?>"><i class="layui-icon">&#xe624;</i> 存储设置</a></li>
+                    <li><a href="<?= url('setting/index') ?>"><i class="layui-icon">&#xe62c;</i> 系统探针</a></li>
+                    <li><a href="<?= url('setting/web') ?>"><i class="layui-icon">&#xe631;</i> 站点设置</a></li>
+                    <li><a href="<?= url('setting/krpano') ?>"><i class="layui-icon">&#xe628;</i> 软件设置</a></li>
+                    <li><a href="<?= url('setting/oss') ?>"><i class="layui-icon">&#xe624;</i> 存储设置</a></li>
                 </ul>
             </div>
         </div>
@@ -47,9 +47,9 @@
             <h2 class="layui-colla-title">项目管理</h2>
             <div class="layui-colla-content layui-show">
                 <ul>
-                    <li><a href="<?= url('project/building') ?>"><i class="layui-icon">&#xe62e;</i> 楼盘项目</a></li>
-                    <li><a href="<?= url('project/tags') ?>"><i class="layui-icon">&#xe609;</i> 标签管理</a></li>
-                    <li><a href="<?= url('project/publish') ?>"><i class="layui-icon">&#xe64e;</i> 发布全景</a></li>
+                    <li><a href="<?= url('pano/building') ?>"><i class="layui-icon">&#xe62e;</i> 楼盘项目</a></li>
+                    <li><a href="<?= url('pano/tags') ?>"><i class="layui-icon">&#xe609;</i> 标签管理</a></li>
+                    <li><a href="<?= url('pano/publish') ?>"><i class="layui-icon">&#xe64e;</i> 发布全景</a></li>
                 </ul>
             </div>
         </div>
@@ -77,8 +77,8 @@
 </body>
 <!-- 脚本 -->
 <script>
-layui.use(['element'], function(){
+    layui.use(['element'], function(){
 
-});
+    });
 </script>
 </html>

@@ -16,11 +16,6 @@ class Adminer extends ActiveRecord
     {
         if ($adminer = self::findOne(['account' => $account])) {
             if (hash_hmac('sha256', $adminer->password, $code) === $password) {
-                $adminerLoginLog = new AdminerLoginLog();
-                $adminerLoginLog->adminer_id = $adminer->id;
-                $adminerLoginLog->ip = \Lying::$maker->request()->remoteAddr();
-                $adminerLoginLog->time = date('Y-m-d H:i:s', time());
-                $adminerLoginLog->save();
                 \Lying::$maker->session()->set('adminer', [
                     'id' => $adminer->id,
                     'account' => $adminer->account,

@@ -13,29 +13,38 @@ class Config extends ActiveRecord
      */
     public static function modify($data, $type)
     {
-        $datas = [];
-        foreach ($data as $name => $value) {
-            $datas[] = [$name, $value, $type];
+        try {
+            $datas = [];
+            foreach ($data as $name => $value) {
+                $datas[] = [$name, trim($value), $type];
+            }
+            $res = self::find()->batchInsert(self::table(), ['name', 'value', 'type'], $datas, true);
+            self::read(true);
+            return $res;
+        } catch(\Exception $e) {
+            return false;
         }
-        $res = self::find()->batchInsert(self::table(), ['name', 'value', 'type'], $datas, true);
-        self::read(true);
-        return $res;
     }
 
     /**
      * 取配置信息
-     * @param boolean $refresh 是否立即刷新
-     * @return array
+     * @param boolean $refresh 是否刷新缓存
+     * @return array 返回配置数组
      */
     public static function read($refresh = false)
     {
-        if ($refresh || !($res = \Lying::$maker->cache()->get('config'))) {
+        $cache = \Lying::$maker->cache();
+        if ($refresh || !($res = $cache->get('config'))) {
             $res = self::find()->asArray()->all();
             $res = array_combine(array_column($res, 'name'), array_column($res, 'value'));
             if (empty($res['cdn'])) {
-                $res['cdn'] = $res['bucket'] . '.' . Endpoint::expoint($res['endpoint']);
+                $expoint = Endpoint::find()
+                    ->select(['expoint'])
+                    ->where(['id' => $res['endpoint']])
+                    ->column();
+                $res['cdn'] = $res['bucket'] . ".$expoint";
             }
-            \Lying::$maker->cache()->set('config', $res);
+            $cache->set('config', $res);
         }
         return $res;
     }

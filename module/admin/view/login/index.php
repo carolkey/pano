@@ -9,7 +9,7 @@
 	<meta name="description" content="<?= $description; ?>">
 	<title><?= $title; ?>-登录</title>
 
-	<link rel="stylesheet" href="http://<?= $cdn; ?>/static/layui1.0.9rls/css/layui.css">
+	<link rel="stylesheet" href="/static/layui/css/layui.css">
 
 	<style>
         body {
@@ -58,7 +58,7 @@
 				<label class="layui-form-label">验证码</label>
 				<div class="layui-input-block">
 					<input type="text" name="code" placeholder="请输入验证码" autocomplete="off" class="layui-input" lay-verify="code">
-					<img id="code" src="<?= url('login/code') ?>" alt="code">
+					<img id="code" src="<?= url('code') ?>" alt="code">
 				</div>
 			</div>
 			<div class="layui-form-item">
@@ -67,50 +67,50 @@
 		</form>
 	</div>
 </body>
-<script src="http://<?= $cdn; ?>/static/layui1.0.9rls/layui.js"></script>
-<script src="http://<?= $cdn; ?>/static/crypto-js/crypto-js.js"></script>
+<script src="/static/layui/layui.js"></script>
+<script src="/static/crypto-js/crypto-js.js"></script>
 <script>
-layui.use(['jquery', 'form', 'layer'], function(){
-	var $ = layui.jquery,
-		form = layui.form(),
-		layer = layui.layer;
+    layui.use(['jquery', 'form', 'layer'], function(){
+        var $ = layui.jquery,
+            form = layui.form(),
+            layer = layui.layer;
 
-	$('#code').click(function() {
-		this.src = '<?= url('login/code') ?>' + '?t=' + Math.random();
-	});
+        $('#code').click(function() {
+            this.src = '<?= url('code') ?>' + '?t=' + Math.random();
+        });
 
-	form.on('submit(login)', function(data) {
-		data.field.password = CryptoJS.HmacSHA256(data.field.account, data.field.password).toString();
-		data.field.password = CryptoJS.HmacSHA256(data.field.password, data.field.code).toString();
-		$.post(location.href, data.field, function(data) {
-			if (data.stat === 0) {
-				layer.msg(data.msg, {icon: 1, shade: 0.3, time: 1000});
-				location.href = '<?= url('index/index'); ?>';
-			} else {
-				layer.msg(data.msg, {icon: 2, shade: 0.3, time: 1000});
-			}
-		}, 'json');
-		
-		return false;
-	});
+        form.on('submit(login)', function(data) {
+            data.field.password = CryptoJS.HmacSHA256(data.field.account, data.field.password).toString();
+            data.field.password = CryptoJS.HmacSHA256(data.field.password, data.field.code).toString();
+            $.post(location.href, data.field, function(data) {
+                if (data.stat === 0) {
+                    layer.msg(data.msg, {icon: 1, shade: 0.3, time: 1000});
+                    location.href = '<?= url('setting/index'); ?>';
+                } else {
+                    layer.msg(data.msg, {icon: 2, shade: 0.3, time: 1000});
+                }
+            }, 'json');
 
-	form.verify({
-		account: function(value) {
-			if (!/^[a-zA-Z][a-zA-Z0-9_]{4,15}$/.test(value)) {
-				return '用户名格式错误';
-			}
-		},
-		password: function(value) {
-			if (!/^\w{6,18}$/.test(value)) {
-				return '密码格式错误';
-			}
-		},
-		code: function(value) {
-			if (!/^\d{1,3}$/.test(value)) {
-				return '验证码格式错误';
-			}
-		}
-	});
-});
+            return false;
+        });
+
+        form.verify({
+            account: function(value) {
+                if (!/^[a-zA-Z][a-zA-Z0-9_]{4,15}$/.test(value)) {
+                    return '用户名格式错误';
+                }
+            },
+            password: function(value) {
+                if (!/^\w{6,18}$/.test(value)) {
+                    return '密码格式错误';
+                }
+            },
+            code: function(value) {
+                if (!/^\d{1,3}$/.test(value)) {
+                    return '验证码格式错误';
+                }
+            }
+        });
+    });
 </script>
 </html>
