@@ -36,10 +36,10 @@
             <h2 class="layui-colla-title">系统设置</h2>
             <div class="layui-colla-content layui-show">
                 <ul>
-                    <li><a href="<?= url('setting/index') ?>"><i class="layui-icon">&#xe62c;</i> 系统探针</a></li>
-                    <li><a href="<?= url('setting/web') ?>"><i class="layui-icon">&#xe631;</i> 站点设置</a></li>
-                    <li><a href="<?= url('setting/krpano') ?>"><i class="layui-icon">&#xe628;</i> 软件设置</a></li>
-                    <li><a href="<?= url('setting/oss') ?>"><i class="layui-icon">&#xe624;</i> 存储设置</a></li>
+                    <li><a href="<?= url('setting/index'); ?>"><i class="layui-icon">&#xe62c;</i> 系统探针</a></li>
+                    <li><a href="<?= url('setting/web'); ?>"><i class="layui-icon">&#xe631;</i> 站点设置</a></li>
+                    <li><a href="<?= url('setting/krpano'); ?>"><i class="layui-icon">&#xe628;</i> 软件设置</a></li>
+                    <li><a href="<?= url('setting/oss'); ?>"><i class="layui-icon">&#xe624;</i> 存储设置</a></li>
                 </ul>
             </div>
         </div>
@@ -47,9 +47,8 @@
             <h2 class="layui-colla-title">项目管理</h2>
             <div class="layui-colla-content layui-show">
                 <ul>
-                    <li><a href="<?= url('pano/building') ?>"><i class="layui-icon">&#xe62e;</i> 楼盘项目</a></li>
-                    <li><a href="<?= url('pano/tags') ?>"><i class="layui-icon">&#xe609;</i> 标签管理</a></li>
-                    <li><a href="<?= url('pano/publish') ?>"><i class="layui-icon">&#xe64e;</i> 发布全景</a></li>
+                    <li><a href="javascript:;"><i class="layui-icon">&#xe62e;</i> 楼盘项目</a></li>
+                    <li><a href="javascript:;"><i class="layui-icon">&#xe609;</i> 标签管理</a></li>
                 </ul>
             </div>
         </div>
@@ -57,9 +56,10 @@
             <h2 class="layui-colla-title">素材管理</h2>
             <div class="layui-colla-content layui-show">
                 <ul>
-                    <li><a href=""><i class="layui-icon">&#xe634;</i> 全景图片</a></li>
-                    <li><a href=""><i class="layui-icon">&#xe60d;</i> 图片素材</a></li>
-                    <li><a href=""><i class="layui-icon">&#xe645;</i> 音频素材</a></li>
+                    <li><a href="<?= url('pano/publish'); ?>"><i class="layui-icon">&#xe64e;</i> 发布全景</a></li>
+                    <li><a href="<?= url('pano/panolist'); ?>"><i class="layui-icon">&#xe634;</i> 全景图片</a></li>
+                    <li><a href="javascript:;"><i class="layui-icon">&#xe60d;</i> 图片素材</a></li>
+                    <li><a href="javascript:;"><i class="layui-icon">&#xe645;</i> 音频素材</a></li>
                 </ul>
             </div>
         </div>

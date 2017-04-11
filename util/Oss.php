@@ -1,6 +1,7 @@
 <?php
 namespace util;
 
+use OSS\Core\OssException;
 use OSS\OssClient;
 
 class Oss {
@@ -87,11 +88,7 @@ class Oss {
     private function client()
     {
         if ($this->cilent === null) {
-            try {
-                $this->cilent = new OssClient($this->key, $this->secret, $this->endpoint);
-            } catch (OssException $e) {
-                $this->cilent = false;
-            }
+            $this->cilent = new OssClient($this->key, $this->secret, $this->endpoint);
         }
         return $this->cilent;
     }
@@ -108,6 +105,56 @@ class Oss {
             $this->client()->getObject($this->bucket, $obj, [OssClient::OSS_FILE_DOWNLOAD => $file]);
             return true;
         } catch(OssException $e) {
+            return false;
+        }
+    }
+
+    /**
+     * 分片上传本地文件
+     * @param string $obj oss对象
+     * @param string $file 本地文件
+     * @return boolean 成功返回true，失败返回false
+     */
+    public function multiuploadFile($obj, $file)
+    {
+        try{
+            $this->client()->multiuploadFile($this->bucket, $obj, $file);
+            return true;
+        } catch(OssException $e) {
+            return false;
+        }
+    }
+
+    /**
+     * 上传文件夹
+     * @param string $prefix oss的路径前缀，以'/'结尾
+     * @param string $dir 本地目录，以'/'结尾
+     * @return boolean|array 成功返回上传成功的数组，失败返回空数组或者false
+     */
+    public function uploadDir($prefix, $dir)
+    {
+        try{
+            $fileList = [];
+            if ($handle = opendir($dir)) {
+                while (false !== ($file = readdir($handle))) {
+                    if ($file != '.' && $file != '..') {
+                        if (is_dir($dir . $file)) {
+                            if ($list = $this->uploadDir($prefix . $file . '/', $dir . $file . '/')) {
+                                $fileList = array_merge($fileList, $list);
+                            }
+                        } else {
+                            if ($this->multiuploadFile($prefix . $file, $dir . $file)) {
+                                $fileList[] = $prefix . $file;
+                            }
+                        }
+                    }
+                }
+                closedir($handle);
+            }
+            return $fileList;
+        } catch(OssException $e) {
+            return false;
+        } catch(\Exception $e) {
             return false;
         }
     }

@@ -27,7 +27,7 @@ class Secure
         for ($i = 0; $i < $strLen; $i++) {
             $result .= chr(ord($str[$i]) ^ ord($key[$i % 40]));
         }
-        return str_replace(['+', '/', '='], ["_$key[0]", "_$key[19]", "_$key[39]"], base64_encode($result));
+        return base64_encode($result);
     }
     
     /**
@@ -39,7 +39,7 @@ class Secure
     public function xorDecrypt($str, $key)
     {
         $key = strtoupper(sha1($key));
-        $str = base64_decode(str_replace(["_$key[0]", "_$key[19]", "_$key[39]"], ['+', '/', '='], $str));
+        $str = base64_decode($str);
         
         $strLen = strlen($str);
         $result = '';

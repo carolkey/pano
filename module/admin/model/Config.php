@@ -38,10 +38,7 @@ class Config extends ActiveRecord
             $res = self::find()->asArray()->all();
             $res = array_combine(array_column($res, 'name'), array_column($res, 'value'));
             if (empty($res['cdn'])) {
-                $expoint = Endpoint::find()
-                    ->select(['expoint'])
-                    ->where(['id' => $res['endpoint']])
-                    ->column();
+                $expoint = Endpoint::search($res['endpoint']);
                 $res['cdn'] = $res['bucket'] . ".$expoint";
             }
             $cache->set('config', $res);

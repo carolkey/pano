@@ -12,10 +12,13 @@ return [
     ],
     'pano.com' => [
         'module' => 'admin',
-        'controller' => 'index',
+        'controller' => 'setting',
         'action' => 'index',
         'suffix' => '',
         'pathinfo' => false,
-        'rule' => [],
+        'rule' => [
+            'vtour/:uuid' => ['admin/vtour/index', 'uuid' => '/^[A-Za-z0-9]{16}$/'],
+            'vtour/:xmluuid' => ['admin/vtour/xml', 'xmluuid' => '/^xml[A-Za-z0-9]{16}$/'],
+        ],
     ],
 ];

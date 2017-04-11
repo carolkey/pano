@@ -3,9 +3,9 @@ return [
     //数据库服务
     'db' => [
         'class' => 'lying\db\Connection',
-        'dsn' => 'mysql:host=120.27.96.228;dbname=pano;charset=utf8',
+        'dsn' => 'mysql:host=127.0.0.1;dbname=pano;charset=utf8',
         'user' => 'root',
-        'pass' => 'Suyaqi1992#',
+        'pass' => '',
     ],
     //日志服务
     'logger' => [

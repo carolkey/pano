@@ -34,9 +34,9 @@
         var ossImg = [];
 
         var oss = {
-            tmpName: null,
-            tmpHost: null,
-            tmpKey: null,
+            filename: null,
+            host: null,
+            objname: null,
             suffix: function(filename) {
                 var pos = filename.lastIndexOf('.');
                 return pos == -1 ? '' : filename.substring(pos);
@@ -54,13 +54,13 @@
                     async: false,
                     dataType: 'json',
                     success: function(data, textStatus) {
-                        oss.tmpHost = data.host;
-                        oss.tmpName = oss.randomName(file.name);
-                        oss.tmpKey = data.prefix + oss.tmpName;
+                        oss.host = data.host;
+                        oss.filename = file.name;
+                        oss.objname = data.prefix + oss.randomName(file.name);
                         up.setOption({
-                            'url': oss.tmpHost,
+                            'url': oss.host,
                             'multipart_params': {
-                                'key': oss.tmpKey,
+                                'key': oss.objname,
                                 'policy': data.policy,
                                 'OSSAccessKeyId': data.accessKeyId,
                                 'success_action_status': '200',
@@ -95,14 +95,34 @@
                 if (ossImg.length == 0) {
                     this.console('没有任何文件被上传');
                 } else {
+                    $('#publish').off('click').addClass('layui-disabled');
+                    $('#choose').off('change').addClass('layui-disabled').attr('disabled', true);
+                    $(document).off('click', '.remove-list');
+                    var dh = layer.load(1, {shade: 0.5});
                     $.ajax({
                         url: '<?= url('process'); ?>',
-                        async: false,
                         dataType: 'json',
                         type: 'POST',
                         data: {images: ossImg},
                         success: function(data, textStatus) {
                             console.log(data);
+                            if (data.stat == 0) {
+                                layer.alert(data.msg, {closeBtn: 0}, function() {
+                                    location.href = '<?= url('panolist'); ?>';
+                                });
+                            } else {
+                                layer.alert(data.msg, {closeBtn: 0}, function() {
+                                    window.location.reload();
+                                });
+                            }
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) {
+                            layer.alert('请求出错：' + textStatus, {closeBtn: 0}, function() {
+                                window.location.reload();
+                            });
+                        },
+                        complete: function(XMLHttpRequest, textStatus) {
+                            layer.close(dh);
                         },
                     });
                 }
@@ -151,13 +171,14 @@
                 FileUploaded: function(up, file, result) {
                     if (result.status == 200) {
                         ossImg.push({
-                            host: oss.tmpHost,
-                            name: oss.tmpName,
-                            key: oss.tmpKey,
+                            host: oss.host,
+                            filename: oss.filename,
+                            objname: oss.objname,
                         });
-                        oss.console('文件 [' + file.name + ']（' + oss.tmpName + '）上传成功');
+                        $('#' + file.id).remove();
+                        oss.console('文件 [' + file.name + '] 上传成功');
                     } else {
-                        oss.console('文件 [' + file.name + ']（' + oss.tmpName + '）上传失败');
+                        oss.console('文件 [' + file.name + '] 上传失败');
                     }
                 },
                 UploadFile: function(up, file) {
@@ -167,7 +188,9 @@
                     element.progress(file.id, file.percent + '%');
                 },
                 UploadComplete: function(up, files) {
-                    oss.console('所有文件上传成功');
+                    if (files.length != 0) {
+                        oss.console('所有文件上传成功，正在切图，请等待几分钟...');
+                    }
                     oss.process();
                 },
                 Error: function(up, err) {
